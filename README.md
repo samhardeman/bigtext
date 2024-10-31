@@ -15,3 +15,9 @@ these can be combined! if you want letters and numbers just use both the -letter
 `-delimeter`: character to be placed in between each character generated. default: ""
 `-truncate`: using sprinkles or delimeters can add the generated character length so truncate can chop off the # of characters after a certain amount. default: off (0)
 `-nl`: adds a new line after a provided character. default: off (0)
+
+TODO:
+program works well for what i want it to do, generate some walls of text to hide flags in for a ctf, but there are definitely some improvements to be made.
+- implement the go strings.Builder type to minimize memory copying.
+- speed improvements
+- usability improvements
