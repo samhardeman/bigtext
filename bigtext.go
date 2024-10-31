@@ -59,16 +59,16 @@ func main() {
 		generation.kind = "numbers"
 		generate(generation)
 	} else if *letters && *numbers {
-		generation.kind = "letters and numbers"
+		generation.kind = "letters numbers"
 		generate(generation)
 	} else if *symbols && *numbers {
-		generation.kind = "numbers and symbols"
+		generation.kind = "numbers symbols"
 		generate(generation)
 	} else if *letters && *symbols {
-		generation.kind = "letters and symbols"
+		generation.kind = "letters symbols"
 		generate(generation)
 	} else if *letters && *symbols && *numbers {
-		generation.kind = "letters and numbers and symbols"
+		generation.kind = "letters numbers symbols"
 		generate(generation)
 	} else {
 		fmt.Println("Error: Please specify a mode.")
@@ -116,7 +116,7 @@ func generate(generation Generation) {
 			output += sprinkling(generation.sprinkle, generation.sprinkleRarity)
 			output += generation.delimeter
 		}
-	case "letters and numbers":
+	case "letters numbers":
 		letters := give("letters")
 		numbers := give("numbers")
 		for i := 0; i < generation.count; i++ {
@@ -128,7 +128,7 @@ func generate(generation Generation) {
 			output += sprinkling(generation.sprinkle, generation.sprinkleRarity)
 			output += generation.delimeter
 		}
-	case "letters and symbols":
+	case "letters symbols":
 		letters := give("letters")
 		symbols := give("symbols")
 		for i := 0; i < generation.count; i++ {
@@ -140,7 +140,7 @@ func generate(generation Generation) {
 			output += sprinkling(generation.sprinkle, generation.sprinkleRarity)
 			output += generation.delimeter
 		}
-	case "numbers and symbols":
+	case "numbers symbols":
 		numbers := give("numbers")
 		symbols := give("symbols")
 		for i := 0; i < generation.count; i++ {
@@ -152,7 +152,7 @@ func generate(generation Generation) {
 			output += sprinkling(generation.sprinkle, generation.sprinkleRarity)
 			output += generation.delimeter
 		}
-	case "letters and numbers and symbols":
+	case "letters numbers symbols":
 		letters := give("letters")
 		numbers := give("numbers")
 		symbols := give("symbols")
