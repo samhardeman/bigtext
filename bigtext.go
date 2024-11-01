@@ -20,8 +20,8 @@ type Generation struct {
 func main() {
 	// Define command-line flags for the two modes
 	words := flag.Bool("w", false, "Words")
-	letters := flag.Bool("letters", false, "Letters")
-	numbers := flag.Bool("numbers", false, "Numbers")
+	letters := flag.Bool("letters", true, "Letters")
+	numbers := flag.Bool("numbers", true, "Numbers")
 	symbols := flag.Bool("symbols", false, "Symbols")
 	newLineAfter := flag.Int("nl", 0, "New line after x characters")
 	truncate := flag.Int("tr", 0, "Truncate")
@@ -49,26 +49,27 @@ func main() {
 	}
 
 	// Determine which mode to run
-	if *words {
-		generation.kind = "words"
-		generate(generation)
-	} else if *letters {
-		generation.kind = "letters"
-		generate(generation)
-	} else if *numbers {
-		generation.kind = "numbers"
+	if *letters && *symbols && *numbers {
+		generation.kind = "letters numbers symbols"
 		generate(generation)
 	} else if *letters && *numbers {
 		generation.kind = "letters numbers"
 		generate(generation)
-	} else if *symbols && *numbers {
+	} else if *numbers && *symbols {
 		generation.kind = "numbers symbols"
 		generate(generation)
 	} else if *letters && *symbols {
 		generation.kind = "letters symbols"
 		generate(generation)
-	} else if *letters && *symbols && *numbers {
-		generation.kind = "letters numbers symbols"
+	} else if *letters {
+		fmt.Println("letters: ", *letters)
+		generation.kind = "letters"
+		generate(generation)
+	} else if *numbers {
+		generation.kind = "numbers"
+		generate(generation)
+	} else if *words {
+		generation.kind = "words"
 		generate(generation)
 	} else {
 		fmt.Println("Error: Please specify a mode.")
@@ -117,10 +118,11 @@ func generate(generation Generation) {
 			output += generation.delimeter
 		}
 	case "letters numbers":
+		fmt.Println("letters numbers")
 		letters := give("letters")
 		numbers := give("numbers")
 		for i := 0; i < generation.count; i++ {
-			if rand.IntN(2) == 1 {
+			if rand.IntN(2)+1 == 1 {
 				output += letters[rand.IntN(len(letters))]
 			} else {
 				output += numbers[rand.IntN(len(numbers))]
@@ -132,7 +134,7 @@ func generate(generation Generation) {
 		letters := give("letters")
 		symbols := give("symbols")
 		for i := 0; i < generation.count; i++ {
-			if rand.IntN(2) == 1 {
+			if rand.IntN(2)+1 == 1 {
 				output += letters[rand.IntN(len(letters))]
 			} else {
 				output += symbols[rand.IntN(len(symbols))]
@@ -144,7 +146,7 @@ func generate(generation Generation) {
 		numbers := give("numbers")
 		symbols := give("symbols")
 		for i := 0; i < generation.count; i++ {
-			if rand.IntN(2) == 1 {
+			if rand.IntN(2)+1 == 1 {
 				output += numbers[rand.IntN(len(numbers))]
 			} else {
 				output += symbols[rand.IntN(len(symbols))]
@@ -157,7 +159,7 @@ func generate(generation Generation) {
 		numbers := give("numbers")
 		symbols := give("symbols")
 		for i := 0; i < generation.count; i++ {
-			lns := rand.IntN(3)
+			lns := rand.IntN(3) + 1
 			if lns == 1 {
 				output += letters[rand.IntN(len(letters))]
 			} else if lns == 2 {
